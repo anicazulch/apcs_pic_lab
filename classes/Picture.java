@@ -98,6 +98,68 @@ public class Picture extends SimplePicture
     }
   }
   
+  /** Method to set the red and green to 0 */
+  public void keepOnlyBlue()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed(0);
+        pixelObj.setGreen(0);
+      }
+    }
+  }
+  
+  /** Method to set the negate all the pixels in a picture */
+  public void negate()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed(255 - pixelObj.getRed());
+        pixelObj.setGreen(255 - pixelObj.getGreen());
+        pixelObj.setBlue(255 - pixelObj.getBlue());
+      }
+    }
+  }
+  
+  /** Method to turn the picture into shades of gray */
+  public void grayscale()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed((pixelObj.getRed() + pixelObj.getGreen() + pixelObj.getBlue())/3);
+        pixelObj.setGreen((pixelObj.getRed() + pixelObj.getGreen() + pixelObj.getBlue())/3);
+        pixelObj.setBlue((pixelObj.getRed() + pixelObj.getGreen() + pixelObj.getBlue())/3);
+      }
+    }
+  }
+  
+  /** Method to make the fish easier to see */
+      public void fixUnderwater()
+      {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        if (pixelObj.getBlue() > 165){
+            pixelObj.setBlue(255);
+        }
+        if (pixelObj.getBlue() < 70){
+            pixelObj.setBlue(5);
+        }
+      }
+    }
+    }
+  
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
     * from left to right */
@@ -227,6 +289,7 @@ public class Picture extends SimplePicture
     beach.explore();
     beach.zeroBlue();
     beach.explore();
+    beach.keepOnlyBlue();
   }
   
 } // this } is the end of class Picture, put all new methods before this
